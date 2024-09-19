@@ -6,21 +6,13 @@ import { WiHumidity } from "react-icons/wi";
 import { TbWorldLongitude } from "react-icons/tb";
 import DateTimeDisplay from "./DateTimeDisplay";
 import { SlCalender } from "react-icons/sl";
-import { blue } from "@mui/material/colors";
+import Image from "next/image";
 export default function Weather() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  // const [red, setRed] = useState(false);
-  // const [green, setGreen] = useState(false);
-  // const [purple, setPurple] = useState(false);
-  // const [pink, setPink] = useState(false);
-  // const [gray, setGray] = useState(false);
-  // const [teal, setTeal] = useState(false);
-  // const [orange, setOrange] = useState(false);
-  // const [yellow, setYellow] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
 
   const apiKey = "f1fc0a9bf37ff43da3dcb62f96fb2493";
@@ -37,6 +29,10 @@ export default function Weather() {
         setWeather(data);
         setIsModalOpen(true);
         setError(null);
+        console.table(data);
+        const weatherId =data.weather[0].id;
+  // const weatherIcon = getWeatherIcon(weatherId) ;
+  console.log(weatherId);
       } else {
         setWeather(null);
         enqueueSnackbar("City not found", { variant: "error" });
@@ -92,6 +88,30 @@ export default function Weather() {
     setIsModalOpen(false);
   };
 
+
+  const getWeatherIcon = (weatherId) =>{
+    if (weatherId === 800) {
+      return "clear.svg";
+    } else if (weatherId >= 200 && weatherId <= 232) {
+      return "storm.svg";
+    } else if (weatherId >= 600 && weatherId <= 622) {
+      return "snow.svg";
+    } else if (weatherId >= 701 && weatherId <= 781) {
+      return "haze.svg";
+    } else if (weatherId >= 801 && weatherId <= 804) {
+      return "cloud.svg";
+    } else if ((weatherId >= 500 && weatherId <= 531) || (weatherId >= 300 && weatherId <= 321)) {
+      return "rain.svg";
+    } else {
+      return "unknown.svg";
+    }
+  }
+ 
+
+  
+  const weatherId = weather?.weather?.[0]?.id;  // Use optional chaining to avoid errors if weather is null
+  const weatherIcon = weatherId ? getWeatherIcon(weatherId) : null;
+console.log(weatherIcon);
   return (
     <main
       className= {`sm:flex sm:flex-row flex flex-col justify-center items-center h-screen p-[2rem] gap-9 w-full ${selectedColor}`}
@@ -151,7 +171,13 @@ export default function Weather() {
               >
                 &times;
               </button>
-              <div className="flex flex-col w-full text-white">
+              <div className="flex flex-col items-center w-full text-white">
+                <Image
+                src={weatherIcon}
+                // src="/favicon.png"
+                alt="weather icon"
+                width={100} height={100}
+                ></Image>
                 <h1 className="font-bold text-[3rem]">
                   {" "}
                   {weather.main.temp}°C
