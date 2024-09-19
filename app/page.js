@@ -114,9 +114,9 @@ export default function Weather() {
 console.log(weatherIcon);
   return (
     <main
-      className= {`sm:flex sm:flex-row flex flex-col justify-center items-center h-screen p-[2rem] gap-9 w-full ${selectedColor}`}
+      className= {`sm:flex sm:flex-row flex flex-col justify-center items-center h-screen p-[2rem] gap-9 w-full ${selectedColor ? selectedColor: 'bg-blue-500'}`}
     >
-      <div className={` rounded-lg shadow-elevated w-full text-center ${selectedColor}`}>
+      <div className={` rounded-lg shadow-elevated w-full text-center ${selectedColor ? selectedColor: 'bg-blue-500'}`}>
         <p className="text-left font-bold text-white text-2xl pt-4 pl-4 mb-4">
           Weather App
         </p>
@@ -135,7 +135,7 @@ console.log(weatherIcon);
             <button
               type="button"
               onClick={detectLocation}
-              className={`w-full shadow-button  hover:opacity-19 text-white font-bold py-4 px-4 rounded ${selectedColor}`}
+              className={`w-full shadow-button  hover:opacity-19 text-white font-bold py-4 px-4 rounded ${selectedColor ? selectedColor: 'bg-blue-500'}`}
             >
              Location auto-detect
             </button>
@@ -150,12 +150,12 @@ console.log(weatherIcon);
 
         {isModalOpen && weather && (
           <div
-            className={`sm:p-[4rem] p-[0.5rem] fixed inset-0 gap-9 sm:flex sm:flex-row flex flex-col justify-center items-center w-full z-50 ${selectedColor}
+            className={`sm:p-[4rem] p-[0.5rem] fixed inset-0 gap-9 sm:flex sm:flex-row flex flex-col justify-center items-center w-full z-50 ${selectedColor ? selectedColor: 'bg-blue-500'}
           
           `}
           >
             <div
-              className={` rounded-lg shadow-elevated w-full flex-col flex justify-center items-center  relative border border-[#FFFFFFCC]  h-full  ${selectedColor}
+              className={` rounded-lg shadow-elevated w-full flex-col flex justify-center items-center  relative border border-[#FFFFFFCC]  h-full  ${selectedColor ? selectedColor: 'bg-blue-500'}
          
             `}
             >
@@ -220,7 +220,7 @@ console.log(weatherIcon);
               
             </div>
             <div
-              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
+              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor ? selectedColor: 'bg-blue-500'}`}
             >
               <span
                 className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ffdd57] rounded-full shadow-elevated"
@@ -263,7 +263,7 @@ console.log(weatherIcon);
         
       </div>
       <div
-              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
+              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor ? selectedColor: 'bg-blue-500'}`}
             >
               <span
                 className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ffdd57] rounded-full shadow-elevated"
