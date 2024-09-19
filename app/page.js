@@ -1,101 +1,277 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from "react";
+import { useSnackbar } from "notistack";
+import { LiaTemperatureLowSolid } from "react-icons/lia";
+import { WiHumidity } from "react-icons/wi";
+import { TbWorldLongitude } from "react-icons/tb";
+import DateTimeDisplay from "./DateTimeDisplay";
+import { SlCalender } from "react-icons/sl";
+import { blue } from "@mui/material/colors";
+export default function Weather() {
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  // const [red, setRed] = useState(false);
+  // const [green, setGreen] = useState(false);
+  // const [purple, setPurple] = useState(false);
+  // const [pink, setPink] = useState(false);
+  // const [gray, setGray] = useState(false);
+  // const [teal, setTeal] = useState(false);
+  // const [orange, setOrange] = useState(false);
+  // const [yellow, setYellow] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
 
-export default function Home() {
+  const apiKey = "f1fc0a9bf37ff43da3dcb62f96fb2493";
+
+  const fetchWeather = async (e) => {
+    e.preventDefault();
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.cod === 200) {
+        setWeather(data);
+        setIsModalOpen(true);
+        setError(null);
+      } else {
+        setWeather(null);
+        enqueueSnackbar("City not found", { variant: "error" });
+      }
+    } catch (error) {
+      enqueueSnackbar("Check your internet connection", { variant: "error" });
+    }
+  };
+
+  const fetchWeatherByLocation = async (latitude, longitude) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.cod === 200) {
+        setWeather(data);
+        setError(null);
+        setIsModalOpen(true);
+      } else {
+        setError("Unable to fetch weather for your location");
+        setWeather(null);
+      }
+    } catch (error) {
+      // enqueueSnackbar("Check your internet connection", { variant: 'error' });
+      setError("Unable to fetch weather for your location");
+    }
+  };
+
+  const detectLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          console.log("Latitude:", latitude);
+          console.log("Longitude:", longitude);
+          fetchWeatherByLocation(latitude, longitude);
+        },
+        (error) => {
+          enqueueSnackbar("Unable to fetch weather for your location", {
+            variant: "error",
+          });
+          setError("Unable to fetch weather for your location");
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser");
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <main
+      className= {`sm:flex sm:flex-row flex flex-col justify-center items-center h-screen p-[2rem] gap-9 w-full ${selectedColor}`}
+    >
+      <div className={` rounded-lg shadow-elevated w-full text-center ${selectedColor}`}>
+        <p className="text-left font-bold text-white text-2xl pt-4 pl-4 mb-4">
+          Weather App
+        </p>
+        <hr className="border-white my-2" />
+        <div className="p-4">
+          <form onSubmit={fetchWeather} className="mb-4">
+            <input
+              type="text"
+              placeholder="Enter city name"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none "
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+            <p className="mb-4 font-bold text-white">OR</p>
+            <button
+              type="button"
+              onClick={detectLocation}
+              className={`w-full shadow-button  hover:opacity-19 text-white font-bold py-4 px-4 rounded ${selectedColor}`}
+            >
+             Location auto-detect
+            </button>
+          </form>
+
+
+
+          
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+
+
+        {isModalOpen && weather && (
+          <div
+            className={`p-[4rem] fixed inset-0 gap-9 sm:flex sm:flex-row flex flex-col justify-center items-center w-full z-50 ${selectedColor}
+          
+          `}
+          >
+            <div
+              className={` rounded-lg shadow-elevated w-full flex-col flex justify-center items-center  relative border border-[#FFFFFFCC]  h-full  ${selectedColor}
+         
+            `}
+            >
+              <div className="absolute top-0 right-0 w-full ">
+                <p className="text-left font-bold text-white text-2xl pt-4 pl-4 mb-4">
+                  Weather App
+                </p>
+                <hr className="border-white my-2 border w-full" />
+              </div>
+              <button
+                className="absolute top-4 right-4 text-gray-700 text-2xl"
+                onClick={handleModalClose}
+              >
+                &times;
+              </button>
+              <div className="flex flex-col w-full text-white">
+                <h1 className="font-bold text-[3rem]">
+                  {" "}
+                  {weather.main.temp}°C
+                </h1>
+                <p> {weather.weather[0].description}</p>
+                <p className=" font-bold mb-4">
+                  {weather.name}, {weather.sys.country}
+                </p>
+
+                <div className="flex w-full flex-shrink">
+                  <div className="border-l-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25% ]sm:w-full flex justify-center items-center">
+                    <LiaTemperatureLowSolid className="w-9 h-9" />{" "}
+                    {weather.main.temp}°C <br/>  Temp
+                  </div>
+                  <div
+                    className="border bl-none sm:py-5 py-2 px-auto w-[25%] md:w-[25% ]sm:w-full
+                  flex justify-center items-center"
+                  >
+                    <WiHumidity className="w-[3rem] h-[3rem]" />{" "}
+                    {weather.main.humidity}% <br/>  Humidity
+                  </div>
+                  <div
+                    className="border sm:py-5 py-2 px-auto w-[25%] md:w-[25% ]sm:w-full
+                  flex justify-center items-center"
+                  >
+                    <TbWorldLongitude className="w-9 h-9" /> long: {weather.coord.lon}
+                    <br/> lat: {weather.coord.lat}
+                  </div>
+                  <div
+                    className="border-r-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25% ]sm:w-full
+                  flex justify-center items-center gap-3"
+                  >
+                    {" "}
+                    <SlCalender className="w-9 h-9" />{" "}
+                    <DateTimeDisplay className="w-7 h-7" />
+                  </div>
+                </div>
+              </div>
+
+              
+            </div>
+            <div
+              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
+            >
+              <span
+                className="w-3 h-3 p-5 bg-[#ffdd57] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ffdd57]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#48cae4] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#48cae4]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#0077b6] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#0077b6]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#00b4d8] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#00b4d8]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#9d4edd] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#9d4edd]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ff6b6b]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#495057] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#495057]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#ff6f00] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ff6f00]")}
+              ></span>
+            </div>
+           
+          </div>
+        )}
+
+
+        
+      </div>
+      <div
+              className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
+            >
+              <span
+                className="w-3 h-3 p-5 bg-[#ffdd57] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ffdd57]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#48cae4] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#48cae4]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#0077b6] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#0077b6]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#00b4d8] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#00b4d8]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#9d4edd] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#9d4edd]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ff6b6b]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#495057] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#495057]")}
+              ></span>
+              <span
+                className="w-3 h-3 p-5 bg-[#ff6f00] rounded-full shadow-elevated"
+                onClick={() => setSelectedColor("bg-[#ff6f00]")}
+              ></span>
+            </div>
+    </main>
   );
 }
