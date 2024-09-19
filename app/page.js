@@ -183,7 +183,7 @@ console.log(weatherIcon);
                   {weather.main.temp}°C
                 </h1>
                 <p> {weather.weather[0].description}</p>
-                <p className=" font-bold mb-4">
+                <p className="text-[1.5rem] font-bold mb-4">
                   {weather.name}, {weather.sys.country}
                 </p>
 
