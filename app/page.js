@@ -162,27 +162,27 @@ export default function Weather() {
                 </p>
 
                 <div className="flex w-full flex-shrink">
-                  <div className="border-l-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full flex justify-center items-center text-xs sm:text-sm">
+                  <div className="border-l-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full flex justify-center items-center text-[10px] sm:text-sm">
                     <LiaTemperatureLowSolid className="w-9 h-9" />{" "}
                     {weather.main.temp}°C <br/>  Temp
                   </div>
                   <div
                     className="border bl-none sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full
-                  flex justify-center items-center text-xs sm:text-sm"
+                  flex justify-center items-center text-[10px] sm:text-sm"
                   >
                     <WiHumidity className="w-[3rem] h-[3rem]" />{" "}
                     {weather.main.humidity}% <br/>  Humidity
                   </div>
                   <div
                     className="border sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full
-                  flex justify-center items-center text-xs sm:text-sm"
+                  flex justify-center items-center text-[10px] sm:text-sm"
                   >
                     <TbWorldLongitude className="w-9 h-9" /> long: {weather.coord.lon}
                     <br/> lat: {weather.coord.lat}
                   </div>
                   <div
                     className="border-r-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full
-                  flex justify-center items-center gap-3 text-xs sm:text-sm"
+                  flex justify-center items-center gap-3 text-[7px] sm:text-sm"
                   >
                     {" "}
                     <SlCalender className="w-9 h-9" />{" "}
