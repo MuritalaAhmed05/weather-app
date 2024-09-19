@@ -108,7 +108,7 @@ export default function Weather() {
               placeholder="Enter city name"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none "
+              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none text-black"
             />
 
             <p className="mb-4 font-bold text-white">OR</p>
@@ -130,7 +130,7 @@ export default function Weather() {
 
         {isModalOpen && weather && (
           <div
-            className={`p-[4rem] fixed inset-0 gap-9 sm:flex sm:flex-row flex flex-col justify-center items-center w-full z-50 ${selectedColor}
+            className={`sm:p-[4rem] p-[0.5rem] fixed inset-0 gap-9 sm:flex sm:flex-row flex flex-col justify-center items-center w-full z-50 ${selectedColor}
           
           `}
           >
