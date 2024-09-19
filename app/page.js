@@ -6,6 +6,7 @@ import { WiHumidity } from "react-icons/wi";
 import { TbWorldLongitude } from "react-icons/tb";
 import DateTimeDisplay from "./DateTimeDisplay";
 import { SlCalender } from "react-icons/sl";
+import { IoLocationOutline } from "react-icons/io5";
 import Image from "next/image";
 export default function Weather() {
   const [city, setCity] = useState("");
@@ -183,9 +184,9 @@ console.log(weatherIcon);
                   {weather.main.temp}°C
                 </h1>
                 <p> {weather.weather[0].description}</p>
-                <p className="text-[1.5rem] font-bold mb-4">
-                  {weather.name}, {weather.sys.country}
-                </p>
+                <div className="text-[1.5rem] flex items-center justify-center gap-1 text-center font-bold mb-4">
+                <IoLocationOutline /> {weather.name}, {weather.sys.country}
+                </div>
 
                 <div className="flex w-full flex-shrink">
                   <div className="border-l-0 border sm:py-5 py-2 px-auto w-[25%] md:w-[25%] sm:w-full flex justify-center items-center text-[12px] sm:text-sm">
