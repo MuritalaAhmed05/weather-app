@@ -197,35 +197,35 @@ export default function Weather() {
               className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
             >
               <span
-                className="w-3 h-3 p-5 bg-[#ffdd57] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ffdd57] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ffdd57]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#48cae4] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#48cae4] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#48cae4]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#0077b6] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#0077b6] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#0077b6]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#00b4d8] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#00b4d8] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#00b4d8]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#9d4edd] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#9d4edd] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#9d4edd]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ff6b6b]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#495057] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#495057] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#495057]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#ff6f00] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ff6f00] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ff6f00]")}
               ></span>
             </div>
@@ -240,35 +240,35 @@ export default function Weather() {
               className={`flex sm:flex-col  py-3 px-2 rounded-[2rem] gap-3 shadow-elevated ${selectedColor}`}
             >
               <span
-                className="w-3 h-3 p-5 bg-[#ffdd57] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ffdd57] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ffdd57]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#48cae4] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#48cae4] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#48cae4]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#0077b6] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#0077b6] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#0077b6]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#00b4d8] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#00b4d8] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#00b4d8]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#9d4edd] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#9d4edd] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#9d4edd]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ff6b6b] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ff6b6b]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#495057] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#495057] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#495057]")}
               ></span>
               <span
-                className="w-3 h-3 p-5 bg-[#ff6f00] rounded-full shadow-elevated"
+                className="w-2 h-2 sm:w-3 sm:h-3 p-4 sm:p-5 bg-[#ff6f00] rounded-full shadow-elevated"
                 onClick={() => setSelectedColor("bg-[#ff6f00]")}
               ></span>
             </div>
