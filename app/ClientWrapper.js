@@ -7,6 +7,7 @@ export default function ClientWrapper({ children }) {
     <SnackbarProvider
       maxSnack={3} 
       autoHideDuration={3000} 
+    
       anchorOrigin={{
         vertical: 'top', 
         horizontal: 'center', 

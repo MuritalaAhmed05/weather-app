@@ -39,9 +39,11 @@ export default function Weather() {
       } else {
         setWeather(null);
         enqueueSnackbar("City not found", { variant: "error" });
+        setLoading(false);
       }
     } catch (error) {
       enqueueSnackbar("Check your internet connection", { variant: "error" });
+      setLoading(false);
     }
   };
 
