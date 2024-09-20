@@ -31,11 +31,11 @@ export default function Weather() {
         setWeather(data);
         setIsModalOpen(true);
         setError(null);
-        console.table(data);
-        const weatherId = data.weather[0].id;
+        // console.table(data);
+        // const weatherId = data.weather[0].id;
         setLoading(false);
         // const weatherIcon = getWeatherIcon(weatherId) ;
-        console.log(weatherId);
+        // console.log(weatherId);
       } else {
         setWeather(null);
         enqueueSnackbar("City not found", { variant: "error" });
@@ -73,8 +73,8 @@ export default function Weather() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("Latitude:", latitude);
-          console.log("Longitude:", longitude);
+          // console.log("Latitude:", latitude);
+          // console.log("Longitude:", longitude);
           fetchWeatherByLocation(latitude, longitude);
         },
         (error) => {
@@ -116,7 +116,7 @@ export default function Weather() {
 
   const weatherId = weather?.weather?.[0]?.id; // Use optional chaining to avoid errors if weather is null
   const weatherIcon = weatherId ? getWeatherIcon(weatherId) : null;
-  console.log(weatherIcon);
+  // console.log(weatherIcon);
   return (
     <main
       className={`sm:flex sm:flex-row flex flex-col justify-center items-center h-screen p-[2rem] gap-9 w-full ${
